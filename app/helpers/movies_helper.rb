@@ -12,4 +12,17 @@ module MoviesHelper
       return 'bg-warning'
     end
   end
+  
+  def isChecked(rating)
+    if params[:ratings] == nil
+      return true
+    end
+
+    if params[:ratings].include?(rating)
+      return true
+    else
+      return false
+    end
+    
+  end
 end

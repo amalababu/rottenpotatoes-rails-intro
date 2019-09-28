@@ -11,8 +11,14 @@ class MoviesController < ApplicationController
   end
 
   def index
+    @all_ratings = Movie.getRatings()
     field = params[:field]
-    @movies = Movie.all.order(field)
+    
+    if params[:ratings] != nil
+      @movies = Movie.with_ratings(params[:ratings].keys).order(field)
+    else
+      @movies = Movie.all.order(field)
+    end
   end
 
   def new
