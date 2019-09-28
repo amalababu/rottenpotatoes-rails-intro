@@ -11,7 +11,8 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
+    field = params[:field]
+    @movies = Movie.all.order(field)
   end
 
   def new
