@@ -5,8 +5,7 @@ module MoviesHelper
   end
   
   def getClass(fieldName)
-    field = params[:field]
-    if field == fieldName
+    if @field == fieldName
       return 'hilite'
     else
       return 'bg-warning'
@@ -14,11 +13,11 @@ module MoviesHelper
   end
   
   def isChecked(rating)
-    if params[:ratings] == nil
+    if @ratings == nil
       return true
     end
 
-    if params[:ratings].include?(rating)
+    if @ratings.include?(rating)
       return true
     else
       return false

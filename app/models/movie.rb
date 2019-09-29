@@ -4,6 +4,10 @@ class Movie < ActiveRecord::Base
   end
   
   def self.with_ratings(ratings)
-    Movie.where(rating: ratings)
+    if(ratings)  
+        Movie.where(rating: ratings)
+    else
+        Movie.all
+    end    
   end
 end

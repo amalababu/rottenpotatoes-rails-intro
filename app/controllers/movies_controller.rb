@@ -11,14 +11,22 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @all_ratings = Movie.getRatings()
-    field = params[:field]
     
-    if params[:ratings] != nil
-      @movies = Movie.with_ratings(params[:ratings].keys).order(field)
-    else
-      @movies = Movie.all.order(field)
+    @all_ratings = Movie.getRatings()
+    
+    @ratings = params[:ratings] || session['ratings']
+    @field = params[:field] || session['field']
+    
+    if(@ratings!=session['ratings'] or @field!=session['field'])
+      flash.keep
+      redirect_to movies_path :field=>@field, :ratings=>@ratings
     end
+    @ratings_keys = @ratings.keys if @ratings
+    @movies = Movie.with_ratings(@ratings_keys).order(@field)
+
+    
+    session['ratings'] = @ratings
+    session['field'] = @field
   end
 
   def new
